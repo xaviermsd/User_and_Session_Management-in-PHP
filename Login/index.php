@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-if (isset($_POST['login'])); {
+if (isset($_POST['login'])) {
     $host = "localhost";
     $user = "root";
     $password = "";
@@ -16,26 +16,27 @@ if (isset($_POST['login'])); {
     $runLoginQuery = mysqli_query($con, $loginQuery);
     // Count the number of user/rows returned by query 
     $user_matched = mysqli_num_rows($runLoginQuery);
-    echo $user_matched;
 
     // Check If user matched/exist
-    if ($user_matched ==1) {
+    if ($user_matched == 1) {
 
         // $_SESSION["email"] = $email;
-        $row = mysqli_fetch_assoc($runLoginQuery);                                                                       
-        echo $row['Password'];
+        $row = mysqli_fetch_assoc($runLoginQuery);
         if (password_verify($password, $row['Password'])) {
             $_SESSION["email"] = $email;
             header("location: userProfile.php");
             // echo "Password Verified";
-        }
-        else{
-            echo "Wrong Password";
+        } else {
+        echo 
+        "<script>
+        alert('Wrong Password');
+        window.location.href=''; 
+        </script>";
         }
     }
-     else {
-        echo "Password does not match";
-    }
+    //  else {
+    //     header("location:/");
+    // }
 }
 ?>
 <!DOCTYPE html>
@@ -102,6 +103,6 @@ if (isset($_POST['login'])); {
     <!-- JS -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="js/main.js"></script>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</body>
 
 </html>
